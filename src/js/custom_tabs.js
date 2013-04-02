@@ -6,8 +6,8 @@ var customTab = {
       for (var key in settings) {
         var setting = settings[key];
 
-        if (url.match(setting.page_at)) {
-          if (!setting.text) { setting['text'] = key; }
+        if (url.match(new RegExp(setting.page_on))) {
+          if (!setting.link_text) { setting['link_text'] = key; }
           links.push(setting);
         }
       }
