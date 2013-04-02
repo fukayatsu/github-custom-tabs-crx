@@ -3,6 +3,8 @@ chrome.browserAction.onClicked.addListener(function(tab){
 });
 
 chrome.extension.onMessage.addListener(function(msg, sender, sendResponse) {
-  console.log(msg);
-  sendResponse({data: 'foobar'});
+  if (msg.action === "pageStart") {
+    var links = customTab.getLinksForUrl(msg.pageUrl);
+    sendResponse({links: links});
+  }
 });

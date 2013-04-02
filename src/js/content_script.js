@@ -1,13 +1,17 @@
 chrome.extension.sendMessage(
   {
-    'action': 'pageStart'
+    'action': 'pageStart',
+    'pageUrl': location.href
   },
-  function(response) {
+  function(res) {
     var $tabs = $('.pagehead ul.tabs');
-    var label = 'google';
-    var url = 'https://google.com';
-    $tabs.append(
-      '<li><a href="' + url + '" target="_brank">' + label + '</li>'
-    );
+    var links = res.links;
+
+    for (var i = 0; i < links.length; i++) {
+      var link = links[i];
+      $tabs.append(
+        '<li><a href="' + link.link_to + '" target="_brank">' + link.text + '</li>'
+      );
+    }
   }
 );
