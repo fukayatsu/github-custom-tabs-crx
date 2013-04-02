@@ -7,6 +7,11 @@ chrome.extension.sendMessage(
     var $tabs = $('.pagehead ul.tabs');
     var links = res.links;
 
+    if ($tabs.find('li').length + links.length > 9) {
+      $tabs.after('<ul class="tabs"></ul>');
+      $tabs = $('.pagehead ul.tabs:last');
+    }
+
     for (var i = 0; i < links.length; i++) {
       var link = links[i];
 
@@ -24,7 +29,7 @@ chrome.extension.sendMessage(
         .split("${DESTINATION_BRANCH_LAST_NUMBERS}").join(numbers);
 
       $tabs.append(
-        '<li><a href="' + linkTo + '" target="_brank">' + link.link_text + '</li>'
+        '<li highlight="dummy"><a href="' + linkTo + '" target="_brank">' + link.link_text + '</li>'
       );
     }
   }
