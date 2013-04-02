@@ -15,18 +15,18 @@ chrome.extension.sendMessage(
     for (var i = 0; i < links.length; i++) {
       var link = links[i];
 
-      var sourceBranch      = $('span.commit-ref:first').text().trim();
-      var destinationBranch = $('span.commit-ref:last').text().trim();
+      var destinationBranch = $('span.commit-ref:first').text().trim();
+      var sourceBranch      = $('span.commit-ref:last').text().trim();
 
       // for my environment
-      var numbersMatch = destinationBranch.match(/([0-9]+)$/);
+      var numbersMatch = sourceBranch.match(/([0-9]+)$/);
       var numbers = numbersMatch ? numbersMatch[1] : "";
 
       var linkTo =
         link.link_to
-        .split("${SOURCE_BRANCH}").join(sourceBranch)
         .split("${DESTINATION_BRANCH}").join(destinationBranch)
-        .split("${DESTINATION_BRANCH_LAST_NUMBERS}").join(numbers);
+        .split("${SOURCE_BRANCH}").join(sourceBranch)
+        .split("${SOURCE_BRANCH_LAST_NUMBERS}").join(numbers);
 
       $tabs.append(
         '<li highlight="dummy"><a href="' + linkTo + '" target="_brank">' + link.link_text + '</li>'
