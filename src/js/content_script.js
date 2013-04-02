@@ -13,10 +13,15 @@ chrome.extension.sendMessage(
       var sourceBranch      = $('span.commit-ref:first').text().trim();
       var destinationBranch = $('span.commit-ref:last').text().trim();
 
+      // for my environment
+      var numbersMatch = destinationBranch.match(/([0-9]+)$/);
+      var numbers = numbersMatch ? numbersMatch[1] : "";
+
       var linkTo =
         link.link_to
         .split("${SOURCE_BRANCH}").join(sourceBranch)
-        .split("${DESTINATION_BRANCH}").join(destinationBranch);
+        .split("${DESTINATION_BRANCH}").join(destinationBranch)
+        .split("${DESTINATION_BRANCH_LAST_NUMBERS}").join(numbers);
 
       $tabs.append(
         '<li><a href="' + linkTo + '" target="_brank">' + link.link_text + '</li>'
